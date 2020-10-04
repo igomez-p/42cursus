@@ -82,6 +82,7 @@ typedef struct	s_cub {
 				t_texturas tex;
 				t_colores col;
 				char **map;
+				void *new_mlx;
 }				t_cub;
 
 void			info_tex(char *line, t_cub *info);
@@ -90,6 +91,7 @@ void			info_color(char *line, t_cub *info);
 char			*info_map(char *line, char *stc);
 void			ini_cub(t_cub *info);
 void			read_cub(char *filename, t_cub *info);
+void			eliminarEspacios(t_cub *cub);
 
 
 #endif

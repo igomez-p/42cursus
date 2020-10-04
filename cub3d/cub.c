@@ -13,6 +13,7 @@
 #include "cub.h"
 #include "libft/libft.h"
 #include <stdio.h>
+#include "minilibx_opengl_20191021/mlx.h"
 
 void	ini_cub(t_cub *info)
 {
@@ -36,6 +37,7 @@ void	ini_cub(t_cub *info)
 	}
 
 	info->map = NULL;
+	info->new_mlx = mlx_init();
 }
 // Función para leer archivo .cub
 void	read_cub(char *filename, t_cub *info)
@@ -75,10 +77,34 @@ void	read_cub(char *filename, t_cub *info)
 	}
 }
 
+void eliminarEspacios(t_cub *cub)
+{
+    char **map_aux = NULL;
+    int filas = 0, colum = 0, y = 0, x = 0;
+    while (cub->map[filas])
+    {
+        while (cub->map[filas][colum])
+        {
+            if (cub->map[filas][colum] != NADA)
+            {
+                map_aux[y][x] = cub->map[filas][colum];
+                x++;
+            }
+            colum++;
+        }
+        y++;
+        filas++;
+    }
+    cub->map = map_aux;
+   // mapaColum = x;
+   // mapaFilas = y;
+}
+
 int		main(int argc, char *argv[])
 {
 	// argumento 1: archivo rt con info sobre el elemento
 	// argumento 2: --save
+	void *window = NULL;
 
 	if (argc < 2)
 	{
@@ -89,6 +115,11 @@ int		main(int argc, char *argv[])
 	t_cub cub;
 	ini_cub(&cub);
 	read_cub(argv[1], &cub);
+	eliminarEspacios(&cub);
+	if (!(window = mlx_new_window(cub.new_mlx, cub.res.rend_x, cub.res.rend_y, "Cub 3D")))
+		return 0;
+	
+
 /*
 	if (!ft_strncmp(argv[2], "--save", ft_strlen(argv[2])))
 		// guardar archivo en formato bmp
@@ -98,7 +129,7 @@ int		main(int argc, char *argv[])
 	}*/
 
 	// ESTRUCTURA GUARDADA
-	printf("\nR: %d %d", cub.res.rend_x, cub.res.rend_x);
+	/*printf("\nR: %d %d", cub.res.rend_x, cub.res.rend_x);
 	printf("\nNO: %s", cub.tex.path_norte);
 	printf("\nSO: %s", cub.tex.path_sur);
 	printf("\nWE: %s", cub.tex.path_oeste);
@@ -113,6 +144,6 @@ int		main(int argc, char *argv[])
 	{
 		printf("MAPmain: %s\n", cub.map[i]);
 		i++;
-	}
+	}*/
 	return (0);
 }

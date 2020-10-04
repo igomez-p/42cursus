@@ -22,6 +22,7 @@
 
 int     g_point_of_view_y; // COORDENADA VERTICAL JUGADOR
 int     g_point_of_view_x; // COORDENADA HORIZONTAL JUGADOR
+char    coordenada;
 
 // coordenadas en unidad: (g_point_of_view * (CUB_SIZE - 1) + (CUB_SIZE / 2))
 // plano de proyección == resolución ?
@@ -41,6 +42,7 @@ void    point_of_view(t_cub *info)
             {
                 g_point_of_view_x = x;
                 g_point_of_view_y = y;
+                coordenada = map[y][x];
                 break;
             }
             x++;
