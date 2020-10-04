@@ -20,7 +20,7 @@ static char	*path_tex(char *line)
 	line = ft_strnstr(line, "./", ft_strlen(line));
 	if (!line)
 	{
-		perror("Error\nNo se encuentra la textura");
+		perror("Error\nNo se encuentra la textura\n");
 		return (NULL);
 	}
 	i = ft_strlen(line) - 1;
@@ -74,7 +74,7 @@ void	info_res(char *line, t_cub *info)
 		info->res.rend_x = save_int(&line);
 		info->res.rend_y = save_int(&line);
 		if (info->res.rend_x <= 0 || info->res.rend_y <= 0)
-			perror("Error\nResolución incorrecta");
+			perror("Error\nResolución incorrecta\n");
 	}
 }
 
@@ -84,26 +84,26 @@ void	info_color(char *line, t_cub *info)
 	{
 		info->col.rgb_suelo[0] = save_int(&line);
 		if (!(info->col.rgb_suelo[0] >= 0 && info->col.rgb_suelo[0] <= 255))
-			perror("Error\nValor RGB incorrecto");
+			perror("Error\nValor RGB incorrecto\n");
 		info->col.rgb_suelo[1] = save_int(&line);
 		if (!(info->col.rgb_suelo[1] >= 0 && info->col.rgb_suelo[1] <= 255))
-			perror("Error\nValor RGB incorrecto");
+			perror("Error\nValor RGB incorrecto\n");
 		info->col.rgb_suelo[2] = save_int(&line);
 		if (!(info->col.rgb_suelo[2] >= 0 && info->col.rgb_suelo[2] <= 255))
-			perror("Error\nValor RGB incorrecto");
+			perror("Error\nValor RGB incorrecto\n");
 
 	}
 	else if (ft_strnstr(line, "C", 1))
 	{
 		info->col.rgb_techo[0] = save_int(&line);
 		if (!(info->col.rgb_techo[0] >= 0 && info->col.rgb_techo[0] <= 255))
-			perror("Error\nValor RGB incorrecto");
+			perror("Error\nValor RGB incorrecto\n");
 		info->col.rgb_techo[1] = save_int(&line);
 		if (!(info->col.rgb_techo[1] >= 0 && info->col.rgb_techo[1] <= 255))
-			perror("Error\nValor RGB incorrecto");
+			perror("Error\nValor RGB incorrecto\n");
 		info->col.rgb_techo[2] = save_int(&line);
 		if (!(info->col.rgb_techo[2] >= 0 && info->col.rgb_techo[2] <= 255))
-			perror("Error\nValor RGB incorrecto");
+			perror("Error\nValor RGB incorrecto\n");
 	}
 }
 

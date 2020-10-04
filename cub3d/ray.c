@@ -6,7 +6,7 @@
 /*   By: kali <kali@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/03 15:32:01 by kali              #+#    #+#             */
-/*   Updated: 2020/03/04 16:17:40 by kali             ###   ########.fr       */
+/*   Updated: 2020/10/04 16:17:40 by kali             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@
 #define PROJECT_PLANE_DISTANCE  (PLANE_Y / (2 * (tan(30) * 180 / M_PI)))
 #define BACK_COL_ANGLE          (FOV / PLANE_X)
 
-int     g_point_of_view_y; // COORDENADA VERTICAL
-int     g_point_of_view_x; // COORDENADA HORIZONTAL
+int     g_point_of_view_y; // COORDENADA VERTICAL JUGADOR
+int     g_point_of_view_x; // COORDENADA HORIZONTAL JUGADOR
 
 // coordenadas en unidad: (g_point_of_view * (CUB_SIZE - 1) + (CUB_SIZE / 2))
 // plano de proyección == resolución ?
@@ -49,7 +49,7 @@ void    point_of_view(t_cub *info)
     }
 }
 
-void    throw_lightning(t_cub *info, int x, int y // la coord y se encargará de buscar si ha chocado con alguna pared o no)
+void    throw_lightning(t_cub *info, int x, int y) // la coord y se encargará de buscar si ha chocado con alguna pared o no
 {
     // ECUACIÓN DE UNA RECTA: y = m*x + n, m = (y-y0) / (x-x0), n = 0
     int m;

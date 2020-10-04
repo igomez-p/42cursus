@@ -46,7 +46,7 @@ void	read_cub(char *filename, t_cub *info)
 
 	stc_line = NULL;
 	if ((fd = open(filename, O_RDONLY)) == -1)
-		perror("Fallo al abrir el archivo");
+		perror("Error\nFallo al abrir el archivo\n");
 	else
 	{
 		linea = 0;
@@ -82,7 +82,7 @@ int		main(int argc, char *argv[])
 
 	if (argc < 2)
 	{
-		perror("Error\n");
+		perror("Error\nNumero de argumentos invalido\n");
 		return (-1);
 	}
 
