@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   save_info.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kali <kali@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: igomez-p <ire.go.pla@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 16:21:03 by igomez-p          #+#    #+#             */
-/*   Updated: 2020/03/07 07:13:41 by kali             ###   ########.fr       */
+/*   Updated: 2021/01/23 18:30:31 by igomez-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,4 +166,23 @@ char	*info_map(char *line, char *stc)
 		free(aux);
 	}
 	return (stc);
+}
+
+int		check_errors(t_cub cub)
+{
+	// Mapa debe estar rodeado por muros
+	int i, j;
+
+	i = 0;
+	j = 0;
+
+	while (cub.map[0][i] && cub.map[cub.nrows-1][j])
+	{
+		if (cub.map[0][i] != MURO || cub.map[cub.nrows-1][j] != MURO)
+			return -1;
+
+		i++;
+		j++;
+	}
+	return 0;
 }

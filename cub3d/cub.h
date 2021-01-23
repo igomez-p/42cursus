@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kali <kali@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: igomez-p <ire.go.pla@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/11 18:51:44 by igomez-p          #+#    #+#             */
-/*   Updated: 2020/03/04 15:42:43 by kali             ###   ########.fr       */
+/*   Updated: 2021/01/23 19:42:16 by igomez-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@
 # include <stdio.h>
 # include <string.h>
 # include <math.h>
+# include "/usr/local/include/mlx.h"
+# include "mlx_int.h"
 // open, read, write, malloc, free, perror, strerror, exit
 // librería math y minilib
 
@@ -77,12 +79,19 @@ typedef struct	s_colores {
 				int rgb_techo[3];
 }				t_colores;
 
+typedef struct	s_minilibx {
+				void	*new_mlx;
+				void	*new_window;
+				mlx_img_list_t	*new_img;
+}				t_minilix;
+
 typedef struct	s_cub {
 				t_resolucion res;
 				t_texturas tex;
 				t_colores col;
 				char **map;
-				void *new_mlx;
+				int	nrows;
+				t_minilix minilibx;
 }				t_cub;
 
 void			info_tex(char *line, t_cub *info);

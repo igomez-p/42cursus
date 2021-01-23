@@ -3,17 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   cub.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kali <kali@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: igomez-p <ire.go.pla@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/11 18:52:45 by igomez-p          #+#    #+#             */
-/*   Updated: 2020/03/07 07:49:35 by kali             ###   ########.fr       */
+/*   Updated: 2021/01/23 19:43:17 by igomez-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 #include "libft/libft.h"
 #include <stdio.h>
-#include "minilibx_opengl_20191021/mlx.h"
+//#include "minilibx_opengl_20191021/mlx.h"
+#include "/usr/local/include/mlx.h"
 
 void	ini_cub(t_cub *info)
 {
@@ -37,7 +38,7 @@ void	ini_cub(t_cub *info)
 	}
 
 	info->map = NULL;
-	info->new_mlx = mlx_init();
+	info->minilibx.new_mlx = mlx_init();
 }
 // Función para leer archivo .cub
 void	read_cub(char *filename, t_cub *info)
@@ -95,6 +96,7 @@ void eliminarEspacios(t_cub *cub)
         y++;
         filas++;
     }
+	cub->nrows = filas;
     cub->map = map_aux;
    // mapaColum = x;
    // mapaFilas = y;
@@ -104,7 +106,6 @@ int		main(int argc, char *argv[])
 {
 	// argumento 1: archivo rt con info sobre el elemento
 	// argumento 2: --save
-	void *window = NULL;
 
 	if (argc < 2)
 	{
@@ -113,15 +114,42 @@ int		main(int argc, char *argv[])
 	}
 
 	t_cub cub;
-	ini_cub(&cub);
+	cub.res.rend_x = 1024;
+	cub.res.rend_y = 900;
+/*	ini_cub(&cub);
 	read_cub(argv[1], &cub);
-	eliminarEspacios(&cub);
-	if (!(window = mlx_new_window(cub.new_mlx, cub.res.rend_x, cub.res.rend_y, "Cub 3D")))
-		return 0;
-	
+	eliminarEspacios(&cub);*/
 
-/*
-	if (!ft_strncmp(argv[2], "--save", ft_strlen(argv[2])))
+	cub.minilibx.new_mlx = mlx_init();
+	if (!cub.minilibx.new_mlx)
+		return 0;
+
+	if (!(cub.minilibx.new_window = mlx_new_window(cub.minilibx.new_mlx, cub.res.rend_x, cub.res.rend_y, "Cub 3D")))
+		return 0;
+
+	if (!(cub.minilibx.new_img = mlx_new_image(cub.minilibx.new_mlx, 850, 650)))
+	{
+		mlx_destroy_window(cub.minilibx.new_mlx, cub.minilibx.new_window);
+		return 0;
+	}
+
+	for (int i = 240; i < 850; i++)
+	{
+		for (int k = 124; k < 650; k++)
+		{
+			mlx_pixel_put(cub.minilibx.new_mlx, cub.minilibx.new_window, i, k, 126);
+		}
+	}
+	mlx_string_put(cub.minilibx.new_mlx, cub.minilibx.new_window, 452, 235, (int)0xFFFFFFFF, "HOLA");
+	mlx_string_put(cub.minilibx.new_mlx, cub.minilibx.new_window, 450, 255, (int)0xFFFFFFFF, "CARACOLA");
+
+	//cub.minilibx.new_img->buffer = ;
+
+//	mlx_put_image_to_window(cub.minilibx.new_mlx, cub.minilibx.new_window, cub.minilibx.new_img, 850, 650);
+//	mlx_loop_hook(cub.minilibx.new_mlx, 0, 0);
+	mlx_loop(cub.minilibx.new_mlx);
+
+	/*if (!ft_strncmp(argv[2], "--save", ft_strlen(argv[2])))
 		// guardar archivo en formato bmp
 	else
 	{

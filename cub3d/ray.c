@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kali <kali@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: igomez-p <ire.go.pla@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/03 15:32:01 by kali              #+#    #+#             */
-/*   Updated: 2020/10/04 16:17:40 by kali             ###   ########.fr       */
+/*   Updated: 2021/01/23 14:59:39 by igomez-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,16 +33,16 @@ void    point_of_view(t_cub *info)
     int y;
 
     y = 0;
-    while (map[y])
+    while (info->map[y])
     {
         x = 0;
-        while (map[y][x])
+        while (info->map[y][x])
         {
-            if (map[y][x] == 'N' || map[y][x] == 'S' || map[y][x] == 'W' || map[y][x] == 'E')
+            if (info->map[y][x] == 'N' || info->map[y][x] == 'S' || info->map[y][x] == 'W' || info->map[y][x] == 'E')
             {
                 g_point_of_view_x = x;
                 g_point_of_view_y = y;
-                coordenada = map[y][x];
+                coordenada = info->map[y][x];
                 break;
             }
             x++;
