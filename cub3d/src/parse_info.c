@@ -1,29 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstsize.c                                       :+:      :+:    :+:   */
+/*   parse_info.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: igomez-p <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: igomez-p <ire.go.pla@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/14 16:34:42 by igomez-p          #+#    #+#             */
-/*   Updated: 2019/11/14 18:49:21 by igomez-p         ###   ########.fr       */
+/*   Created: 2021/01/24 16:59:04 by igomez-p          #+#    #+#             */
+/*   Updated: 2021/01/24 16:59:05 by igomez-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-
-int	ft_lstsize(t_list *lst)
-{
-	int cont;
-
-	cont = 0;
-	if (lst)
-	{
-		while (lst)
-		{
-			cont++;
-			lst = lst->next;
-		}
-	}
-	return (cont);
-}

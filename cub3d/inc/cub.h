@@ -6,7 +6,7 @@
 /*   By: igomez-p <ire.go.pla@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/11 18:51:44 by igomez-p          #+#    #+#             */
-/*   Updated: 2021/01/24 13:30:36 by igomez-p         ###   ########.fr       */
+/*   Updated: 2021/01/24 18:36:29 by igomez-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,19 @@
 # include <stdio.h>
 # include <string.h>
 # include <math.h>
-#include "/usr/local/include/mlx.h"
 
+# include "libft.h"
+# include "libftprintf.h"
+# include "/usr/local/include/mlx.h"
+
+#define	MAC_SYSTEM		1
+#define LINUX_SYSTEM	0
+
+#ifdef	MAC_SYSTEM
+	# include "keycode_mac.h"
+#elif	LINUX_SYSTEM
+	# include "keycode_linux.h"
+#endif
 
 // open, read, write, malloc, free, perror, strerror, exit
 // librería math y minilib
@@ -90,10 +101,17 @@ typedef struct	mlx_img_list_s
 } mlx_img_list_t;
 
 typedef struct	s_minilibx {
-				void	*new_mlx;
-				void	*new_window;
-				mlx_img_list_t	*new_img;
+				void	*mlx;
+				void	*window;
+				void	*img;
+				void	*img_addr;
 }				t_minilix;
+
+typedef struct	s_window {
+				int sz_line;
+				int endian;
+				int bpp;
+}				t_window;
 
 typedef struct	s_cub {
 				t_resolucion res;
@@ -102,15 +120,18 @@ typedef struct	s_cub {
 				char **map;
 				int	nrows;
 				t_minilix minilibx;
+				t_window	win;
 }				t_cub;
 
 void			info_tex(char *line, t_cub *info);
 void			info_res(char *line, t_cub *info);
 void			info_color(char *line, t_cub *info);
 char			*info_map(char *line, char *stc);
-void			ini_cub(t_cub *info);
+void			init_cub(t_cub *info);
 void			read_cub(char *filename, t_cub *info);
 void			eliminarEspacios(t_cub *cub);
-
+void			check_error(t_cub cub, char *str);
+int				exit_program(t_cub cub);
+int				paint(int keycode, t_cub c);
 
 #endif

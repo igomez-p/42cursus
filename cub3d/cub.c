@@ -6,15 +6,13 @@
 /*   By: igomez-p <ire.go.pla@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/11 18:52:45 by igomez-p          #+#    #+#             */
-/*   Updated: 2021/01/24 13:31:00 by igomez-p         ###   ########.fr       */
+/*   Updated: 2021/01/24 19:11:53 by igomez-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub.h"
-#include "libft.h"
-#include <stdio.h>
+#include "inc/cub.h"
 
-void	ini_cub(t_cub *info)
+void	init_cub(t_cub *info)
 {
 	int i;
 
@@ -36,7 +34,11 @@ void	ini_cub(t_cub *info)
 	}
 
 	info->map = NULL;
-	info->minilibx.new_mlx = mlx_init();
+
+	info->minilibx.mlx = NULL;
+	info->minilibx.window = NULL;
+	info->minilibx.img = NULL;
+	info->minilibx.img_addr = NULL;
 }
 // Función para leer archivo .cub
 void	read_cub(char *filename, t_cub *info)
@@ -111,65 +113,41 @@ int		main(int argc, char *argv[])
 		return (-1);
 	}
 
-	t_cub cub;
-	cub.res.rend_x = 1024;
-	cub.res.rend_y = 900;
-/*	ini_cub(&cub);
-	read_cub(argv[1], &cub);
-	eliminarEspacios(&cub);*/
+	t_cub	cub;
+	cub.res.rend_x = 2048;	// ancho
+	cub.res.rend_y = 875;	// alto
 
-	cub.minilibx.new_mlx = mlx_init();
-	if (!cub.minilibx.new_mlx)
-		return 0;
+	//cub.first = 0;
+//	init_cub(&cub);
+/*	check_file(argc, argv, &cub);
+	grab_file(&cub, argc, argv);*/
 
-	if (!(cub.minilibx.new_window = mlx_new_window(cub.minilibx.new_mlx, cub.res.rend_x, cub.res.rend_y, "Cub 3D")))
-		return 0;
+	if (!(cub.minilibx.mlx = mlx_init()))
+		check_error(cub, "Error al inicializar MLX\n");
 
-	if (!(cub.minilibx.new_img = mlx_new_image(cub.minilibx.new_mlx, 850, 650)))
-	{
-		mlx_destroy_window(cub.minilibx.new_mlx, cub.minilibx.new_window);
-		return 0;
-	}
+/*	read_from_file(&cub);
+	load_textures(&cub);
+	load_hud(&cub);
+	read_map(&cub);
+	close(cub.fd);
+	set_mini_map(&cub, &cub.m_map);*/
 
-/*	for (int i = 240; i < 850; i++)
-	{
-		for (int k = 124; k < 650; k++)
-		{
-			mlx_pixel_put(cub.minilibx.new_mlx, cub.minilibx.new_window, i, k, 126);
-		}
-	}
-	mlx_string_put(cub.minilibx.new_mlx, cub.minilibx.new_window, 452, 235, (int)0xFFFFFFFF, "HOLA");
-	mlx_string_put(cub.minilibx.new_mlx, cub.minilibx.new_window, 450, 255, (int)0xFFFFFFFF, "CARACOLA");
-*/
-	memset(cub.minilibx.new_img->buffer, 123, 4*850*650);
+	if(!(cub.minilibx.window = mlx_new_window(cub.minilibx.mlx, cub.res.rend_x, cub.res.rend_y, "Cub3D")))
+		check_error(cub, "Error new window\n");
+	if (!(cub.minilibx.img = mlx_new_image(cub.minilibx.mlx, cub.res.rend_x, cub.res.rend_y)))
+		check_error(cub, "Error new image\n");
 
-	mlx_put_image_to_window(cub.minilibx.new_mlx, cub.minilibx.new_window, cub.minilibx.new_img, 850, 650);
-//	mlx_loop_hook(cub.minilibx.new_mlx, 0, 0);
-	mlx_loop(cub.minilibx.new_mlx);
 
-	/*if (!ft_strncmp(argv[2], "--save", ft_strlen(argv[2])))
-		// guardar archivo en formato bmp
-	else
-	{
-		// se muestra la imagen en ventana (con ciertas reglas)
-	}*/
+	cub.minilibx.img_addr = mlx_get_data_addr(cub.minilibx.img, &cub.win.bpp, &cub.win.sz_line, &cub.win.endian);
 
-	// ESTRUCTURA GUARDADA
-	/*printf("\nR: %d %d", cub.res.rend_x, cub.res.rend_x);
-	printf("\nNO: %s", cub.tex.path_norte);
-	printf("\nSO: %s", cub.tex.path_sur);
-	printf("\nWE: %s", cub.tex.path_oeste);
-	printf("\nEA: %s", cub.tex.path_este);
-	printf("\nS: %s", cub.tex.path_sprite);
-	printf("\nF: %d,%d,%d", cub.col.rgb_suelo[0], cub.col.rgb_suelo[1], cub.col.rgb_suelo[2]);
-	printf("\nC: %d,%d,%d", cub.col.rgb_techo[0], cub.col.rgb_techo[1], cub.col.rgb_techo[2]);
+	if (argc == 3 && (!ft_strncmp(argv[2], "--save", 7)))
+		return 1;	//save_bmp(&cub);
 
-	int i = 0;
-	printf("\n");
-	while (cub.map[i] != NULL)
-	{
-		printf("MAPmain: %s\n", cub.map[i]);
-		i++;
-	}*/
+	mlx_hook(cub.minilibx.window, 17, 0, exit_program, &cub);
+/*	mlx_hook(cub.minilibx.window, 2, 0, key_press, &cub);
+	mlx_hook(cub.minilibx.window, 3, 0, key_release, &cub);*/
+//	paint(1, cub);
+	mlx_loop_hook(cub.minilibx.mlx, paint, &cub);
+	mlx_loop(cub.minilibx.mlx);
 	return (0);
 }

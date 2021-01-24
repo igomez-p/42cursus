@@ -18,34 +18,33 @@ SRC =	aux_functions.c \
 		int_conversion.c \
 		printfstruct.c \
 		ptr_conversion.c \
-		strings_conversion.c
+		strings_conversion.c \
+		
 
 OBJ = ${SRC:.c=.o}
 
 NAME = libftprintf.a
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -I.
+CFLAGS = -Wall -Wextra -Werror
 
 %.o:	%.c
 		${CC} ${CFLAGS} -c $< -o $@
 
-%.o:	libft/%.c
-		${CC} ${CFLAGS} -c $< -o $@
 
 all:	$(NAME)
 
 $(NAME): ${OBJ}
-		make -C libft
-		ar rc ${NAME} libft/*.o ${OBJ}
+		make -C
+		ar rc ${NAME} ${OBJ}
 
 debug:
-		$(CC) $(CFLAGS) -g $(SRC) libft/ft_*.c -I libft
+		$(CC) $(CFLAGS) -g $(SRC) libft.a
 
 clean:
 		rm -f ${OBJ}
 
 fclean:	clean
-		rm -f ${NAME} libft/*.o *.o
+		rm -f ${NAME} *.o
 
 re:		fclean all
 .PHONY:	all clean fclean re
