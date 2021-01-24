@@ -6,7 +6,7 @@
 /*   By: igomez-p <ire.go.pla@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/11 18:51:44 by igomez-p          #+#    #+#             */
-/*   Updated: 2021/01/23 19:42:16 by igomez-p         ###   ########.fr       */
+/*   Updated: 2021/01/24 13:30:36 by igomez-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,9 @@
 # include <stdio.h>
 # include <string.h>
 # include <math.h>
-# include "/usr/local/include/mlx.h"
-# include "mlx_int.h"
+#include "/usr/local/include/mlx.h"
+
+
 // open, read, write, malloc, free, perror, strerror, exit
 // librería math y minilib
 
@@ -78,6 +79,15 @@ typedef struct	s_colores {
 				int rgb_suelo[3];
 				int rgb_techo[3];
 }				t_colores;
+
+typedef struct	mlx_img_list_s
+{
+  int			width;
+  int			height;
+  char			*buffer;
+  float			vertexes[8];
+  struct mlx_img_list_s	*next;
+} mlx_img_list_t;
 
 typedef struct	s_minilibx {
 				void	*new_mlx;

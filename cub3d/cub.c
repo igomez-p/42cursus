@@ -6,15 +6,13 @@
 /*   By: igomez-p <ire.go.pla@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/11 18:52:45 by igomez-p          #+#    #+#             */
-/*   Updated: 2021/01/23 19:43:17 by igomez-p         ###   ########.fr       */
+/*   Updated: 2021/01/24 13:31:00 by igomez-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
-#include "libft/libft.h"
+#include "libft.h"
 #include <stdio.h>
-//#include "minilibx_opengl_20191021/mlx.h"
-#include "/usr/local/include/mlx.h"
 
 void	ini_cub(t_cub *info)
 {
@@ -133,7 +131,7 @@ int		main(int argc, char *argv[])
 		return 0;
 	}
 
-	for (int i = 240; i < 850; i++)
+/*	for (int i = 240; i < 850; i++)
 	{
 		for (int k = 124; k < 650; k++)
 		{
@@ -142,10 +140,10 @@ int		main(int argc, char *argv[])
 	}
 	mlx_string_put(cub.minilibx.new_mlx, cub.minilibx.new_window, 452, 235, (int)0xFFFFFFFF, "HOLA");
 	mlx_string_put(cub.minilibx.new_mlx, cub.minilibx.new_window, 450, 255, (int)0xFFFFFFFF, "CARACOLA");
+*/
+	memset(cub.minilibx.new_img->buffer, 123, 4*850*650);
 
-	//cub.minilibx.new_img->buffer = ;
-
-//	mlx_put_image_to_window(cub.minilibx.new_mlx, cub.minilibx.new_window, cub.minilibx.new_img, 850, 650);
+	mlx_put_image_to_window(cub.minilibx.new_mlx, cub.minilibx.new_window, cub.minilibx.new_img, 850, 650);
 //	mlx_loop_hook(cub.minilibx.new_mlx, 0, 0);
 	mlx_loop(cub.minilibx.new_mlx);
 

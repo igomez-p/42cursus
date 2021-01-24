@@ -6,13 +6,13 @@
 #    By: igomez-p <ire.go.pla@gmail.com>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/06 15:29:03 by igomez-p          #+#    #+#              #
-#    Updated: 2021/01/23 18:50:37 by igomez-p         ###   ########.fr        #
+#    Updated: 2021/01/24 12:56:01 by igomez-p         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME =	cub3d
 
-SRCS =	*.c libft/*.c libft/libftprintf.a
+SRCS =	*.c libft.a #libft/*.c libft/libftprintf.a
 OBJS =	$(SRCS:.c=.o)
 
 CC =	gcc

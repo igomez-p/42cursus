@@ -14,6 +14,9 @@
 #define FONT_WIDTH	10
 #define	FONT_HEIGHT	20
 
+#define GLuint  uint
+#define GLint   int
+#define GLfloat float
 
 typedef int (*func_t)();
 

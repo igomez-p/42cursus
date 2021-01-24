@@ -6,12 +6,12 @@
 /*   By: igomez-p <ire.go.pla@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 16:21:03 by igomez-p          #+#    #+#             */
-/*   Updated: 2021/01/23 18:30:31 by igomez-p         ###   ########.fr       */
+/*   Updated: 2021/01/24 12:58:26 by igomez-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
-#include "libft/libft.h"
+#include "libft.h"
 
 static char	*path_tex(char *line)
 {
