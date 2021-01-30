@@ -6,7 +6,7 @@
 /*   By: igomez-p <ire.go.pla@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/11 18:51:44 by igomez-p          #+#    #+#             */
-/*   Updated: 2021/01/24 18:36:29 by igomez-p         ###   ########.fr       */
+/*   Updated: 2021/01/30 17:59:26 by igomez-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,7 @@ typedef struct	s_window {
 				int sz_line;
 				int endian;
 				int bpp;
+				char *data;
 }				t_window;
 
 typedef struct	s_cub {

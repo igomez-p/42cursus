@@ -6,7 +6,7 @@
 /*   By: igomez-p <ire.go.pla@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/24 16:58:54 by igomez-p          #+#    #+#             */
-/*   Updated: 2021/01/24 18:03:10 by igomez-p         ###   ########.fr       */
+/*   Updated: 2021/01/30 17:37:08 by igomez-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,12 @@ void	check_error(t_cub cub, char *str)
 		write(1, str, len);
 
 	i = -1;
-	if (cub.map)
+	/*if (cub.map)
 	{
 		while (++i < cub.nrows)
 			free(cub.map[i]);
 		free(cub.map);
-	}
+	}*/
 //	if (t->fd > 0)
 //		close(t->fd);
 	if (cub.minilibx.window)

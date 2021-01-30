@@ -6,7 +6,7 @@
 /*   By: igomez-p <ire.go.pla@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/11 18:52:45 by igomez-p          #+#    #+#             */
-/*   Updated: 2021/01/24 19:11:53 by igomez-p         ###   ########.fr       */
+/*   Updated: 2021/01/30 17:44:41 by igomez-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,11 +139,13 @@ int		main(int argc, char *argv[])
 
 
 	cub.minilibx.img_addr = mlx_get_data_addr(cub.minilibx.img, &cub.win.bpp, &cub.win.sz_line, &cub.win.endian);
+	//printf("bpp %d | sz_line %d | endian %d\nr", cub.win.bpp, cub.win.sz_line, cub.win.endian);
 
+//ft_memcpy(cub.minilibx.img_addr, (void *)999, sizeof(int));
 	if (argc == 3 && (!ft_strncmp(argv[2], "--save", 7)))
 		return 1;	//save_bmp(&cub);
 
-	mlx_hook(cub.minilibx.window, 17, 0, exit_program, &cub);
+	mlx_hook(cub.minilibx.window, 17, 0, exit_program, 0);
 /*	mlx_hook(cub.minilibx.window, 2, 0, key_press, &cub);
 	mlx_hook(cub.minilibx.window, 3, 0, key_release, &cub);*/
 //	paint(1, cub);

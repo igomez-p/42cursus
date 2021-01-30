@@ -6,7 +6,7 @@
 /*   By: igomez-p <ire.go.pla@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/24 14:31:02 by igomez-p          #+#    #+#             */
-/*   Updated: 2021/01/24 19:08:05 by igomez-p         ###   ########.fr       */
+/*   Updated: 2021/01/30 18:05:52 by igomez-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,20 +15,23 @@
 int	paint(int keycode, t_cub c)
 {
 	int x = 0, y = 0;
-	int heigh = 875, width = 2048;
-
-	while (y < heigh)
+	int sizeline = 650;
+	c.win.data = malloc(sizeof(c.minilibx.img_addr));
+	ft_memset(c.win.data, 10, sizeof(c.minilibx.img_addr));
+	while (x < c.res.rend_x)
 	{
-		x = 0;
-		while (x < width)
+		y = 0;
+		while (y < (int)(c.res.rend_y / 2))
 		{
-			mlx_pixel_put(c.minilibx.mlx, c.minilibx.window, x, y, 65355);
-			//ft_memcpy(cub.minilib.img_ptr + 4 * t->res[X] * start + 4 * x, &t->tex[t->id].data[4 * t->tex[t->id].x * t->x_floortext + 4 * t->y_floortext], sizeof(int));
-			x++;
+			ft_memcpy(c.minilibx.img_addr + 4 * c.res.rend_x * y + x * 4,
+					c.win.data[y % 512 * sizeline +
+					x % 512 * c.win.bpp / 8], sizeof(int));
+			y++;
 		}
-		y++;
+		x++;
 	}
-	return (0);
+	free(c.win.data);
+	return (1);
 }
 
 int			exit_program(t_cub cub)
@@ -37,7 +40,9 @@ int			exit_program(t_cub cub)
 
 	write(1, "Closing program...\n", 19);
 	i = -1;
-/*	if (cub.map)
+/*	if (cub)
+		free(cub);
+	if (cub.map)
 	{
 		while (++i < cub.nrows)
 			free(cub.map[i]);
@@ -45,8 +50,11 @@ int			exit_program(t_cub cub)
 	}*/
 //	if (t->fd > 0)
 //		close(t->fd);
-	mlx_destroy_image(cub.minilibx.mlx, cub.minilibx.img);
-	mlx_destroy_window(cub.minilibx.mlx, cub.minilibx.window);
+	if (cub.minilibx.img)
+		mlx_destroy_image(cub.minilibx.mlx, cub.minilibx.img);
+	if (cub.minilibx.window)
+		mlx_destroy_window(cub.minilibx.mlx, cub.minilibx.window);
+
 	exit(0);
 	return (0);
 }
