@@ -6,7 +6,7 @@
 /*   By: igomez-p <ire.go.pla@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/11 18:52:45 by igomez-p          #+#    #+#             */
-/*   Updated: 2021/01/30 17:44:41 by igomez-p         ###   ########.fr       */
+/*   Updated: 2021/01/31 19:48:01 by igomez-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,9 @@ void	init_cub(t_cub *info)
 
 	info->map = NULL;
 
-	info->minilibx.mlx = NULL;
-	info->minilibx.window = NULL;
-	info->minilibx.img = NULL;
-	info->minilibx.img_addr = NULL;
+	info->libx.mlx = NULL;
+	info->libx.window = NULL;
+	info->libx.img = NULL;
 }
 // Función para leer archivo .cub
 void	read_cub(char *filename, t_cub *info)
@@ -114,42 +113,28 @@ int		main(int argc, char *argv[])
 	}
 
 	t_cub	cub;
-	cub.res.rend_x = 2048;	// ancho
+	init_cub(&cub);
+	cub.res.rend_x = 1024;	// ancho
 	cub.res.rend_y = 875;	// alto
-
-	//cub.first = 0;
-//	init_cub(&cub);
+	read_cub("maps/prueba.cub", &cub);
 /*	check_file(argc, argv, &cub);
 	grab_file(&cub, argc, argv);*/
 
-	if (!(cub.minilibx.mlx = mlx_init()))
-		check_error(cub, "Error al inicializar MLX\n");
+	if (!(cub.libx.mlx = mlx_init()))
+		check_error(&cub, "Error al inicializar MLX\n");
 
-/*	read_from_file(&cub);
-	load_textures(&cub);
-	load_hud(&cub);
-	read_map(&cub);
-	close(cub.fd);
-	set_mini_map(&cub, &cub.m_map);*/
+	if(!(cub.libx.window = mlx_new_window(cub.libx.mlx, cub.res.rend_x, cub.res.rend_y, "Cub3D")))
+		check_error(&cub, "Error new window\n");
+	if (!(cub.libx.img = mlx_new_image(cub.libx.mlx, cub.res.rend_x, cub.res.rend_y)))
+		check_error(&cub, "Error new image\n");
 
-	if(!(cub.minilibx.window = mlx_new_window(cub.minilibx.mlx, cub.res.rend_x, cub.res.rend_y, "Cub3D")))
-		check_error(cub, "Error new window\n");
-	if (!(cub.minilibx.img = mlx_new_image(cub.minilibx.mlx, cub.res.rend_x, cub.res.rend_y)))
-		check_error(cub, "Error new image\n");
+	cub.win.data = (int *)mlx_get_data_addr(cub.libx.img, &cub.win.bpp, &cub.win.sz_line, &cub.win.endian);
 
-
-	cub.minilibx.img_addr = mlx_get_data_addr(cub.minilibx.img, &cub.win.bpp, &cub.win.sz_line, &cub.win.endian);
-	//printf("bpp %d | sz_line %d | endian %d\nr", cub.win.bpp, cub.win.sz_line, cub.win.endian);
-
-//ft_memcpy(cub.minilibx.img_addr, (void *)999, sizeof(int));
 	if (argc == 3 && (!ft_strncmp(argv[2], "--save", 7)))
 		return 1;	//save_bmp(&cub);
 
-	mlx_hook(cub.minilibx.window, 17, 0, exit_program, 0);
-/*	mlx_hook(cub.minilibx.window, 2, 0, key_press, &cub);
-	mlx_hook(cub.minilibx.window, 3, 0, key_release, &cub);*/
-//	paint(1, cub);
-	mlx_loop_hook(cub.minilibx.mlx, paint, &cub);
-	mlx_loop(cub.minilibx.mlx);
+	mlx_hook(cub.libx.window, 17, 0, exit_program, 0);
+	mlx_loop_hook(cub.libx.mlx, draw, &cub);
+	mlx_loop(cub.libx.mlx);
 	return (0);
 }

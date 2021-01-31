@@ -6,29 +6,40 @@
 #    By: igomez-p <ire.go.pla@gmail.com>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/06 15:29:03 by igomez-p          #+#    #+#              #
-#    Updated: 2021/01/30 16:36:52 by igomez-p         ###   ########.fr        #
+#    Updated: 2021/01/31 19:48:04 by igomez-p         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME =	cub3d
+NAME = cub3d
 
-SRCS =	cub.c src/*.c library/libft.a
-OBJS =	$(SRCS:.c=.o)
+SRC = cub.c \
+	  src/check_info.c \
+	  src/parse_info.c \
+	  src/save_info.c \
+	  src/windows.c \
+	  src/simple_map.c \
+	  src/ray.c \
 
-CC =	gcc
-FLAGS =	$(CC) -Wall -framework OpenGL -framework AppKit -lmlx #-Werror -Wextra
+LIB = library/libft.a \
+	  library/libftprintf.a \
 
-all:	$(NAME)
 
-# COMPROBAR
-$(NAME):$(OBJS)
-		ar rc ${NAME} ${OBJS}
+OBJ = $(SRC:.c=.o)
 
-# COMPROBAR
-debug:	$(CC) $(FLAGS) -g $(SRCS)
+all: $(NAME)
 
-clean:	rm -f ${OBJS}
-fclean:	rm -f ${NAME} *.o
+$(NAME): $(OBJ)
+		#make -C minilibx
+		#mv minilibx/libmlx.a .
+		gcc -Wall -g -Werror -Wextra -c $(SRC)
+		gcc -Wall -g -Werror -Wextra $(LIB) -L. -lmlx -framework OpenGL -framework Appkit $(OBJ) -o $(NAME)
 
-re:		fclean all
-.PHONY:	all clean fclean re
+clean:
+		make -C minilibx clean
+		rm -rf $(OBJ) libft.a libmlx.a
+
+fclean: clean
+		make -C minilibx clean
+		rm -rf $(NAME)
+
+re : fclean all

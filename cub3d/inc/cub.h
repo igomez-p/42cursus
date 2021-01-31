@@ -6,7 +6,7 @@
 /*   By: igomez-p <ire.go.pla@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/11 18:51:44 by igomez-p          #+#    #+#             */
-/*   Updated: 2021/01/30 17:59:26 by igomez-p         ###   ########.fr       */
+/*   Updated: 2021/01/31 19:48:43 by igomez-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,9 @@
 # include "libft.h"
 # include "libftprintf.h"
 # include "/usr/local/include/mlx.h"
+
+#define PASO 0.01
+#define GRADOS2RADIAN(angle) ((angle) / 180.0 * M_PI)
 
 #define	MAC_SYSTEM		1
 #define LINUX_SYSTEM	0
@@ -104,15 +107,41 @@ typedef struct	s_minilibx {
 				void	*mlx;
 				void	*window;
 				void	*img;
-				void	*img_addr;
+				int		height;
+				int		width;
 }				t_minilix;
 
 typedef struct	s_window {
 				int sz_line;
 				int endian;
 				int bpp;
-				char *data;
+				int *data;
 }				t_window;
+
+typedef struct	s_mov {
+				float left;
+				float right;
+				float up;
+				float down;
+				float x;
+				float y;
+				float angle;
+				float v;
+				float turn;
+}				t_mov;
+
+typedef struct	s_camera {
+				int left;
+				int right;
+}				t_camera;
+
+typedef struct	s_raycasting {
+				float alt_ant;
+				float ntecho_ant;
+				float nsuelo_ant;
+				float last_time;
+				float delta;
+}				t_raycasting;
 
 typedef struct	s_cub {
 				t_resolucion res;
@@ -120,8 +149,14 @@ typedef struct	s_cub {
 				t_colores col;
 				char **map;
 				int	nrows;
-				t_minilix minilibx;
+				t_minilix libx;
 				t_window	win;
+				t_mov		player;
+				t_camera	cam;
+				t_raycasting ray;
+
+				int	resz_map;
+				int resz_player;
 }				t_cub;
 
 void			info_tex(char *line, t_cub *info);
@@ -131,8 +166,10 @@ char			*info_map(char *line, char *stc);
 void			init_cub(t_cub *info);
 void			read_cub(char *filename, t_cub *info);
 void			eliminarEspacios(t_cub *cub);
-void			check_error(t_cub cub, char *str);
-int				exit_program(t_cub cub);
-int				paint(int keycode, t_cub c);
+void			check_error(t_cub *c, char *str);
+int				exit_program(t_cub *c);
+int				paint(t_cub *c);
+int			render_map(t_cub *c);
+int draw(t_cub *c);
 
 #endif
