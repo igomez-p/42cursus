@@ -11,15 +11,19 @@
 /* ************************************************************************** */
 
 #include "../inc/cub.h"
+#include <math.h>
 
-static void rect(int x, int y, int width, int height, t_cub *c)
+static void rect(int x, int y, int width, int height, t_cub *c, int suelo)
 {
+    int color = 0x764522;
+    if (suelo)  color = 0x0000ff;
+
 	while (y < height)
 	{
 		x = 0;
 		while (x < width)
 		{
-			c->win.data[y * width + x] = 0x026600;
+			c->win.data[y * width + x] = color; //0x0222ff;
 			x++;
 		}
 		y++;
@@ -29,7 +33,7 @@ static void rect(int x, int y, int width, int height, t_cub *c)
 
 static void line(int x1, int techo, int x2, int suelo, t_cub *c)
 {
-	c->win.data[x1 * techo + x2 + suelo] = 0x026600;
+	c->win.data[x1 * techo + x2 + suelo] = 0xffffff; //0x026600;
 	mlx_put_image_to_window(c->libx.mlx, c->libx.window, c->libx.img, 0, 0);
 }
 
@@ -42,9 +46,10 @@ int draw(t_cub *c)
 
     //Pintar el cielo y el suelo:
   //  fill(30);
-    rect(0,0,c->res.rend_x, c->res.rend_y/2, c); //Cielo
+    rect(0,0,c->res.rend_x, c->res.rend_y/2, c, 0); //Cielo
   //  fill(120);
-    rect(0,c->res.rend_y/2,c->res.rend_x, c->res.rend_y/2, c); //Suelo
+    rect(0,c->res.rend_y/2,c->res.rend_x, c->res.rend_y/2, c, 1); //Suelo
+
     int x = 0;
     while (x < c->res.rend_x)
     {
@@ -79,7 +84,7 @@ int draw(t_cub *c)
         distancia = distancia * cos(aRayo - c->player.angle);
 
         //Calcular la altura del muro:
-        float altura = 12;//min(c->res.rend_y, c->res.rend_x / distancia);
+        float altura = 32;//min(c->res.rend_y, c->res.rend_x / distancia);
 
         //Calcular el píxel de la pantalla donde hay que empezar a dibujar el muro (nTecho) y donde hay que acabar (nSuelo)
         int nTecho = (int)((float)c->res.rend_y / 2.0 - altura/2);

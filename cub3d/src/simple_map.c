@@ -34,12 +34,12 @@ static void	print_rect(t_cub *c, int *aux, int color)
 {
 	int	h;
 	int	w;
-	int	*p;
-	int	l;
+	//int	*p;
+	//int	l;
 
-	p = c->win.data;
+	//p = c->win.data;
 	h = aux[2];
-	l = c->res.rend_x * (int)(c->res.rend_y / 1.2) + (int)(c->res.rend_x / 1.4);
+	//l = c->res.rend_x * (int)(c->res.rend_y / 1.2) + (int)(c->res.rend_x / 1.4);
 	while (h < aux[3])
 	{
 		w = aux[0];

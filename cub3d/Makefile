@@ -22,17 +22,19 @@ SRC = cub.c \
 
 LIB = library/libft.a \
 	  library/libftprintf.a \
+	  minilibx-linux/libmlx.a \
+	  minilibx-linux/libmlx_Linux.a \
 
 
 OBJ = $(SRC:.c=.o)
 
+%.o: %.c
+	gcc -Wall -Werror -Wextra -g -I /usr/local/include -c $< -o $@
+
 all: $(NAME)
 
 $(NAME): $(OBJ)
-		#make -C minilibx
-		#mv minilibx/libmlx.a .
-		gcc -Wall -g -Werror -Wextra -c $(SRC)
-		gcc -Wall -g -Werror -Wextra $(LIB) -L. -lmlx -framework OpenGL -framework Appkit $(OBJ) -o $(NAME)
+		gcc -Wall -Werror -Wextra -g $(OBJ) $(LIB) -I /usr/local/include -lm -lz -lXext -lX11 -L ./minilibx-linux -pthread -o $(NAME)
 
 clean:
 		make -C minilibx clean

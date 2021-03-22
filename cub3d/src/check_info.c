@@ -15,7 +15,7 @@
 
 void	check_error(t_cub *c, char *str)
 {
-	int		i;
+	//int		i;
 	int		len;
 
 	len = ft_strlen(str);
@@ -25,7 +25,7 @@ void	check_error(t_cub *c, char *str)
 	else
 		write(1, str, len);
 
-	i = -1;
+	//i = -1;
 	/*if (c->map)
 	{
 		while (++i < c->nrows)

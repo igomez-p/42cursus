@@ -32,8 +32,8 @@
 #define PASO 0.01
 #define GRADOS2RADIAN(angle) ((angle) / 180.0 * M_PI)
 
-#define	MAC_SYSTEM		1
-#define LINUX_SYSTEM	0
+#define	MAC_SYSTEM		0
+#define LINUX_SYSTEM	1
 
 #ifdef	MAC_SYSTEM
 	# include "keycode_mac.h"
@@ -169,7 +169,8 @@ void			eliminarEspacios(t_cub *cub);
 void			check_error(t_cub *c, char *str);
 int				exit_program(t_cub *c);
 int				paint(t_cub *c);
-int			render_map(t_cub *c);
-int draw(t_cub *c);
+int				render_map(t_cub *c);
+int				draw(t_cub *c);
+int key_handler(int key, t_cub *c);
 
 #endif

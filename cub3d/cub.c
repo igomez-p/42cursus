@@ -133,6 +133,9 @@ int		main(int argc, char *argv[])
 	if (argc == 3 && (!ft_strncmp(argv[2], "--save", 7)))
 		return 1;	//save_bmp(&cub);
 
+//	mlx_mouse_show();
+printf("key_hook\n\r");
+	mlx_hook(cub.libx.window, 2, 1, key_handler, &cub);
 	mlx_hook(cub.libx.window, 17, 0, exit_program, 0);
 	mlx_loop_hook(cub.libx.mlx, draw, &cub);
 	mlx_loop(cub.libx.mlx);

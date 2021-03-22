@@ -33,12 +33,39 @@ int	paint(t_cub *c)
 	return (1);
 }
 
+int key_handler(int key, t_cub *c)
+{
+	printf("key %d\n\r", key);
+	if (key == (int)'W' || key == (int)'w')
+	{
+		c->player.up = 1;
+		printf("KEY W\n\r");
+	}
+	else if (key == (int)'A' || key == (int)'a')
+	{
+		c->player.right = 1;
+		printf("KEY A\n\r");
+	}
+	else if (key == (int)'S' || key == (int)'s')
+	{
+		c->player.down = 1;
+		printf("KEY S\n\r");
+	}
+	else if (key == (int)'D' || key == (int)'d')
+	{
+		c->player.left = 1;
+		printf("KEY D\n\r");
+	}
+
+	return 1;
+}
+
 int			exit_program(t_cub *c)
 {
-	int			i;
+	//int			i;
 
 	write(1, "Closing program...\n", 19);
-	i = 0;
+	//i = 0;
 
 //	TODO: LIBERAR MAPA
 
